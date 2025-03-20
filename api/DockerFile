@@ -1,0 +1,42 @@
+# Use the official Rust image as the base image
+FROM rust:1.70-slim AS builder
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Cargo.toml and Cargo.lock files
+COPY backend/Cargo.toml backend/Cargo.lock ./
+
+# Create a new empty file to cache dependencies
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+
+# Fetch and build dependencies (this helps cache dependencies)
+RUN cargo build --release
+RUN rm -f target/release/deps/rust_backend*
+
+# Now copy the actual source code
+COPY backend/src ./src
+
+# Build the application
+RUN cargo build --release
+
+# Start a new image for the final stage (slim runtime environment)
+FROM debian:bullseye-slim
+
+# Install necessary system dependencies for the app (if needed)
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the built binary from the builder stage
+COPY --from=builder /app/target/release/prescription_management_app /usr/local/bin/prescription_management_app
+
+# Set the working directory
+WORKDIR /usr/local/bin
+
+# Expose the port your app will run on
+EXPOSE 8000
+
+# Command to run the application
+CMD ["prescription_management_app"]
