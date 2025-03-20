@@ -5,7 +5,7 @@ This project is a full-stack prescription management system with a Rust backend 
 
 ```
 prescription-management/
-│── backend/             # Rust backend
+│── api/             # Rust backend
 │   ├── src/
 │   │   ├── main.rs
 │   │   ├── prescription.rs

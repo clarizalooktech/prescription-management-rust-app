@@ -1,0 +1,27 @@
+# Ignore build output
+/target/
+
+# Ignore Cargo lock files, if using a CI/CD pipeline with specific versions
+/Cargo.lock
+
+# Ignore local environment files
+.env
+
+# Ignore IDE and editor-specific files
+.idea/
+.vscode/
+
+# Ignore Docker-related files (in case of builds or intermediate Docker images)
+.docker/
+
+# Ignore Rust-specific files
+**/*.rs.bk
+
+# Ignore Cargo config files for local configurations (if any)
+/cargo/
+
+# Ignore node_modules for frontend (if integrated)
+node_modules/
+
+# Ignore compiled binaries
+/prescription_management_app
