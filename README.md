@@ -14,7 +14,7 @@ prescription-management/
 │   ├── Cargo.toml
 │   ├── Dockerfile       # Containerizing the backend
 │   ├── .env
-│── frontend/            # React frontend
+│── ui/            # React frontend
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
